@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leave a Review — Aitking Builders Ltd</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--dark:#0E1318;--surface:#161C26;--amber:#C8872A;--amblt:#DFA040;--border:rgba(200,135,42,.22);--text:#F0EBE2;--body:rgba(210,195,172,.72);--muted:rgba(155,140,118,.55)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--text);min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem;-webkit-font-smoothing:antialiased;position:relative;overflow:hidden}
+body::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(200,135,42,.07) 0%,transparent 65%);pointer-events:none}
+
+.back-link{display:inline-flex;align-items:center;gap:.45rem;text-decoration:none;color:var(--muted);font-size:.78rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;margin-bottom:2rem;transition:color .2s}
+.back-link:hover{color:var(--amber)}
+.back-link svg{flex-shrink:0}
+
+.brand{display:flex;flex-direction:column;align-items:center;gap:.2rem;margin-bottom:2rem;text-decoration:none}
+.brand-name{font-family:'Outfit',sans-serif;font-size:1.1rem;font-weight:800;color:var(--text);letter-spacing:-.01em}
+.brand-sub{font-size:.6rem;font-weight:500;color:var(--muted);letter-spacing:.2em;text-transform:uppercase}
+
+.card{position:relative;z-index:1;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:3rem 3.5rem;max-width:500px;width:100%;text-align:center;backdrop-filter:blur(12px)}
+.card-eye{font-size:.6rem;font-weight:700;letter-spacing:.24em;text-transform:uppercase;color:var(--amber);margin-bottom:.9rem;display:flex;align-items:center;justify-content:center;gap:.5rem}
+.card-eye::before,.card-eye::after{content:'';display:block;width:18px;height:1px;background:rgba(200,135,42,.4)}
+.card h1{font-family:'Outfit',sans-serif;font-size:1.8rem;font-weight:800;letter-spacing:-.02em;color:var(--text);margin-bottom:.6rem;line-height:1.1}
+.card h1 em{font-style:normal;color:var(--amblt)}
+.card-sub{font-size:.88rem;color:var(--body);line-height:1.7;margin-bottom:2.2rem}
+
+.stars{display:flex;justify-content:center;gap:.5rem;margin-bottom:.7rem}
+.star{font-size:2.8rem;cursor:pointer;transition:transform .15s,filter .15s;filter:grayscale(1) brightness(.4);user-select:none;line-height:1}
+.star.lit{filter:none;transform:scale(1.1)}
+.star:hover{transform:scale(1.18)}
+
+.rating-label{font-size:.8rem;color:var(--muted);min-height:1.2em;transition:opacity .2s;margin-bottom:2rem;letter-spacing:.04em}
+
+.btn-continue{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;padding:.9rem 2.4rem;background:var(--amber);color:#fff;border:none;border-radius:7px;font-family:'Outfit',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:background .2s,transform .2s;width:100%;letter-spacing:.03em;opacity:.38;pointer-events:none}
+.btn-continue.active{opacity:1;pointer-events:auto}
+.btn-continue.active:hover{background:var(--amblt);transform:translateY(-2px)}
+
+.divider{width:40px;height:1px;background:rgba(255,255,255,.08);margin:1.8rem auto 1.4rem}
+.private-note{font-size:.74rem;color:var(--muted)}
+.private-note a{color:rgba(240,235,226,.38);text-decoration:underline;text-underline-offset:3px;text-decoration-color:rgba(255,255,255,.15)}
+.private-note a:hover{color:var(--amber)}
+
+@media(max-width:480px){.card{padding:2rem 1.5rem}.card h1{font-size:1.5rem}.star{font-size:2.2rem}}
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+  Back to site
+</a>
+
+<a href="index.html" class="brand">
+  <span class="brand-name">Aitking Builders Ltd</span>
+  <span class="brand-sub">Hokitika · West Coast NZ</span>
+</a>
+
+<div class="card">
+  <div class="card-eye">Your Feedback</div>
+  <h1>How did we <em>do?</em></h1>
+  <p class="card-sub">Your experience matters to us. Rate your project below and we'll take you straight to Google — it only takes a second.</p>
+
+  <div class="stars" id="stars">
+    <span class="star" data-val="1">⭐</span>
+    <span class="star" data-val="2">⭐</span>
+    <span class="star" data-val="3">⭐</span>
+    <span class="star" data-val="4">⭐</span>
+    <span class="star" data-val="5">⭐</span>
+  </div>
+  <div class="rating-label" id="ratingLabel">Select a star rating</div>
+
+  <button class="btn-continue" id="continueBtn" onclick="proceed()">Continue →</button>
+
+  <div class="divider"></div>
+  <p class="private-note">Prefer to share <a href="private.html">private feedback instead?</a></p>
+</div>
+
+<script>
+const LABELS = ['','Needs improvement','Could be better','Good experience','Great experience','Excellent — 5 stars!'];
+const GOOGLE_URL = 'https://www.google.com/maps/search/Aitking+Builders+Ltd+Hokitika';
+let selected = 0;
+
+const stars = document.querySelectorAll('.star');
+const label = document.getElementById('ratingLabel');
+const btn   = document.getElementById('continueBtn');
+
+stars.forEach((s, i) => {
+  s.addEventListener('mouseenter', () => {
+    stars.forEach((x, j) => x.classList.toggle('lit', j <= i));
+    label.textContent = LABELS[i + 1];
+  });
+  s.addEventListener('mouseleave', () => {
+    stars.forEach((x, j) => x.classList.toggle('lit', j < selected));
+    label.textContent = selected ? LABELS[selected] : 'Select a star rating';
+  });
+  s.addEventListener('click', () => {
+    selected = i + 1;
+    stars.forEach((x, j) => x.classList.toggle('lit', j < selected));
+    label.textContent = LABELS[selected];
+    btn.classList.add('active');
+  });
+});
+
+function proceed(){
+  if(!selected) return;
+  if(selected >= 4){
+    window.location.href = GOOGLE_URL;
+  } else {
+    window.location.href = 'private.html?rating=' + selected;
+  }
+}
+</script>
+</body>
+</html>
