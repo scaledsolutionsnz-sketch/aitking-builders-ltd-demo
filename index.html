@@ -196,7 +196,7 @@ footer{background:rgba(14,19,24,.98);border-top:1px solid rgba(255,255,255,.05);
 .foot-links a{font-size:.72rem;color:var(--muted);text-decoration:none;text-transform:uppercase;letter-spacing:.08em;transition:color .2s}
 .foot-links a:hover{color:var(--amber)}
 
-/* ANIMATIONS */
+/* SCROLL REVEALS */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .65s ease,transform .65s ease}
 .reveal.in{opacity:1;transform:none}
 .reveal-delay-1{transition-delay:.1s}
@@ -204,6 +204,24 @@ footer{background:rgba(14,19,24,.98);border-top:1px solid rgba(255,255,255,.05);
 .reveal-delay-3{transition-delay:.3s}
 .reveal-delay-4{transition-delay:.4s}
 .reveal-delay-5{transition-delay:.5s}
+
+/* PAGE OPEN ANIMATIONS */
+nav.nav-preload{opacity:0;transform:translateY(-110%);transition:none!important}
+nav.nav-in{opacity:1;transform:translateY(0);transition:opacity .65s ease,transform .65s cubic-bezier(.16,1,.3,1)!important}
+.hero-bg{transform:scale(1.07)}
+.hero-bg.bg-in{transform:scale(1);transition:transform 8s cubic-bezier(.25,.46,.45,.94)}
+.ho-tag,.ho-sub,.ho-btns,.ho-chips,.ho-marquee{opacity:0}
+.h1-line{display:block;overflow:hidden;padding-bottom:.08em;margin-bottom:-.08em}
+.h1-line>span{display:block;transform:translateY(115%)}
+.page-ready .ho-tag{animation:hoUp .75s cubic-bezier(.16,1,.3,1) .12s forwards}
+.page-ready .h1-line:nth-child(1)>span{animation:lineUp 1s cubic-bezier(.16,1,.3,1) .26s forwards}
+.page-ready .h1-line:nth-child(2)>span{animation:lineUp 1s cubic-bezier(.16,1,.3,1) .44s forwards}
+.page-ready .ho-sub{animation:hoUp .75s cubic-bezier(.16,1,.3,1) .62s forwards}
+.page-ready .ho-btns{animation:hoUp .7s cubic-bezier(.16,1,.3,1) .78s forwards}
+.page-ready .ho-chips{animation:hoUp .6s ease .92s forwards}
+.page-ready .ho-marquee{animation:hoUp .6s ease 1.05s forwards}
+@keyframes hoUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
+@keyframes lineUp{from{transform:translateY(115%)}to{transform:translateY(0)}}
 
 /* RESPONSIVE */
 @media(max-width:1024px){
@@ -251,7 +269,7 @@ footer{background:rgba(14,19,24,.98);border-top:1px solid rgba(255,255,255,.05);
 </div>
 
 <!-- NAV -->
-<nav id="mainNav">
+<nav id="mainNav" class="nav-preload">
   <a href="#" class="nav-logo">
     <img src="akb-build-logo.png" alt="AKB Build">
   </a>
@@ -284,14 +302,17 @@ footer{background:rgba(14,19,24,.98);border-top:1px solid rgba(255,255,255,.05);
   <div class="hero-overlay"></div>
   <div class="hero-fade"></div>
   <div class="hero-inner">
-    <div class="hero-tag">Licensed General Contractor · Hokitika</div>
-    <h1 class="hero-h1">Built Right.<br>Built to <em>Last.</em></h1>
-    <p class="hero-sub">From new builds to renovations and everything in between — Aitking Builders delivers quality construction work across Hokitika and the West Coast.</p>
-    <div class="hero-btns">
+    <div class="hero-tag ho-tag">Licensed General Contractor · Hokitika</div>
+    <h1 class="hero-h1">
+      <span class="h1-line"><span>Built Right.</span></span>
+      <span class="h1-line"><span>Built to <em>Last.</em></span></span>
+    </h1>
+    <p class="hero-sub ho-sub">From new builds to renovations and everything in between — Aitking Builders delivers quality construction work across Hokitika and the West Coast.</p>
+    <div class="hero-btns ho-btns">
       <a href="#contact" class="btn-primary">Get a Free Quote →</a>
       <a href="#work" class="btn-outline">See Our Work</a>
     </div>
-    <div class="hero-chips">
+    <div class="hero-chips ho-chips">
       <span class="chip">New Builds</span>
       <span class="chip">Renovations</span>
       <span class="chip">Roofing</span>
@@ -302,7 +323,7 @@ footer{background:rgba(14,19,24,.98);border-top:1px solid rgba(255,255,255,.05);
 </section>
 
 <!-- MARQUEE -->
-<div class="marquee">
+<div class="marquee ho-marquee">
   <div class="marquee-track">
     <span class="m-item">New Home Builds</span>
     <span class="m-item">Renovations</span>
@@ -580,9 +601,16 @@ footer{background:rgba(14,19,24,.98);border-top:1px solid rgba(255,255,255,.05);
 </footer>
 
 <script>
-window.addEventListener('load', () => setTimeout(() => document.getElementById('loader').classList.add('gone'), 900));
-
 const nav = document.getElementById('mainNav');
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('gone');
+    document.body.classList.add('page-ready');
+    document.querySelector('.hero-bg').classList.add('bg-in');
+    nav.classList.remove('nav-preload');
+    nav.classList.add('nav-in');
+  }, 900);
+});
 window.addEventListener('scroll', () => nav.classList.toggle('scrolled', scrollY > 60));
 
 const hamburger = document.getElementById('hamburger');
